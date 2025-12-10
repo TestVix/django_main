@@ -1,0 +1,27 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+env/
+
+# VSCode
+.vscode/
+
+# Django static files
+staticfiles/
+media/
+
+# Environment files
+.env
+*.env
+
+# SQLite database (agar GitHubga chiqmoqchi bo‘lmasangiz)
+db.sqlite3
+
+# Compiled
+*.log
+*.pot
+*.pyc
+.DS_Store
