@@ -1,13 +1,1113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>
-        salom
-    </h1>
-</body>
-</html>
+<body class="kun">
+  <nav>
+      <div class="navbar">
+        <div class="navbar-brand">
+          <a href="/">
+            <img src="/static/logo.gif" alt="">
+            <p>TestVix</p>
+          </a>
+        </div>
+  
+        <div class="menu-toggle" onclick="toggleMenu()">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+  
+        <ul class="nav-links" id="navLinks">
+          <!-- <li>
+            <button onclick="icon_time_func(this)" class="icon_time bi bi-brightness-high"></button>
+          </li> -->
+          <li><a href="/">Testlar</a></li>
+          <li><a href=" /testlarim/ ">Testlarim</a></li>
+          <li><a href="/sign/">Profile</a></li>
+          <li><a href="#">Xabarlar</a></li>
+          <li id="logout_li"><a href="/logout/">Chiqish</a></li>
+        </ul>
+      </div>
+    </nav>
+  
+  
+  
+  
+
+
+<style>
+    .container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 10px 20px;
+    }
+    .section_title{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+    .section_title img{
+        width: 40px;
+        height: auto;
+        border-radius: 50%;
+    }
+    .section_title h2{
+    background: linear-gradient(45deg, #6b1cce, #74a9f3);
+    background-clip: text;
+    color: transparent;
+    margin: 0;
+    }
+
+    .cards{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+        gap: 20px;
+        z-index: 2;
+    }
+    .card{
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgb(138, 138, 138, 0.6);
+        /* transition: 0.2s ease; */
+    }
+    .id_star{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+    }
+    .id_star .stars{
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        right: 0;
+    }
+    .id_star p{
+        background:linear-gradient(45deg, rgb(168, 11, 215), aqua);
+        padding: 3px 10px;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+    }
+    p, i{
+        margin: 0;
+        padding: 0;
+    }
+    .star_no_fill{
+        display: flex;
+    }
+    .star_fill{
+        position: absolute;
+        right: 0;
+        /* width: 50%; */
+        left: 0%;
+        /* background-color: #6b1cce; */
+        color: gold;
+        overflow: hidden;
+        display: flex;
+        /* box-sizing: border-box; */
+    }
+
+    .test_nom{
+        font-size: 24px;
+        width:fit-content;
+        background:linear-gradient(45deg, rgb(168, 11, 215), aqua);
+        background-clip: text;
+        color: transparent;
+        background-size: 100% 100%;
+        margin-top: 10px;
+    }
+    .test_fani{
+        font-size: 18px;
+        color: green;
+        margin-top: 0px;
+    }
+    .test_tasnif{
+        color: gray;
+        font-size: 16px;
+    }
+    .action_btns{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 10px;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    /* .action_btns button{
+        padding: 0;
+    } */
+    .plus_test{
+        display: flex;
+        flex-direction: column-reverse;
+        text-align: center;
+        position: fixed;
+        right: 50px;
+        bottom: 50px;
+        z-index: 100;
+        width: 80px;
+        height: 80px;
+    }
+    .plus_test i{
+        color: rgb(0, 255, 0);
+        font-size: 80px;
+    }
+    .i_div{
+        z-index: 101;
+    }
+    .p_div{
+        width: 150px;
+        text-align: center;
+        position: relative;
+        height: 0;
+        right:calc(25% + 15px);
+        background-color: #74a9f3;
+        color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.5s linear;
+        z-index: 80;
+    }
+    .i_div:hover ~  .p_div{
+        height: 1000px;
+        width: 150px;
+        right: calc(25% + 15px);
+        overflow: visible;
+        z-index: 102;
+    }
+    .plus_modal{
+        position: fixed;
+        padding: 20px;
+        /* box-shadow: 0 0 10px gray; */
+        top: 50px;
+        right: -60%;
+        height: 100%;
+        background-color: white;
+        text-align: center;
+        z-index: 1001;
+        border-radius: 0;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        width: 50%;
+        transition: 0.5s linear;
+    }
+    .plus_modal div{
+        position: relative;
+        margin-top: 20px;
+    }
+    .plus_modal div input{
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px 15px;
+        outline: none;
+        border: 2px solid rgb(0, 72, 255);
+        font-size: 20px;
+        box-sizing: border-box;
+    }
+    .plus_modal div label{
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        font-size: 20px;
+        transition: all 0.2s linear;
+    }
+    .plus_modal div textarea{
+        min-width: 100%;
+        min-height: 100px;
+        font-size: 20px;
+        padding: 10px 15px;
+        border-radius: 10px;
+        border: 2px solid blue;
+        outline: none;
+    }
+    .plus_modal div input:focus+label, .plus_modal div input:not(:placeholder-shown)+label{
+        top: -15px;
+        padding: 0 10px;
+        background-color: white;
+        color: blue;
+    }
+    .plus_modal div textarea:focus+label, .plus_modal div textarea:not(:placeholder-shown)+label{
+        top: -15px;
+        padding: 0 10px;
+        background-color: white;
+        color: blue;
+    }
+    .x_modal_plus{
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        font-size: 40px;
+        background-color: red;
+        color: white;
+        border-radius: 5px;
+    }
+    .test_btn{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .test_btn button{
+        padding: 10px 50px;
+        background: linear-gradient(45deg, rgb(171, 3, 232), aqua);
+        color: white;
+        font-size: 20px;
+        border: 0;
+        border-radius: 5px;
+    }
+    .x_plus_modal{
+        width: 0%;
+        height: 100%;
+        background-color: rgba(128, 128, 128, 0.186);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        transition: all 0.5s linear;
+    }
+
+    .test_info{
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+    }
+    .test_info .test_info_div{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: 4px;
+    }
+    .test_info_div div{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .test_comment{
+        background-color: #e2ffe7;
+        color: #26b236;
+        padding: 10px;
+    }
+    .test_like_dislike{
+        padding: 5px;
+        background-color: rgba(179, 179, 179, 0.452);
+    }
+    .test_like_dislike div:nth-child(1){
+        background-color: rgba(97, 255, 131, 0.827);
+        padding: 5px;
+        border-radius: 5px;
+        color: rgb(0, 138, 0);
+    }
+    .test_like_dislike div:nth-child(2){
+        background-color: rgba(255, 97, 97, 0.827);
+        padding: 5px;
+        border-radius: 5px;
+        color: rgb(138, 0, 0);
+    }
+    .test_attempt{
+        background-color: #eef4ff;
+        color: #1e40af;
+        padding: 10px;
+    }
+</style>
+
+<div class="plus_test">
+    <div class="i_div" onclick="plus_modal_open(1)">
+        <i class="bi bi-plus-square-fill"></i>
+    </div>
+    <div class="p_div">
+        <p>
+            Test qo'shish uchun bosing.
+        </p>
+    </div>
+</div>
+
+<div class="x_plus_modal" onclick="plus_modal_open(0)"></div>
+<div class="plus_modal">
+    <i class="x_modal_plus bi bi-x" onclick="plus_modal_open(0)"></i>
+    <h2>
+        Test qo'shish
+    </h2>
+    <input type="text" id="test_edit_id" name="test_id" value="12">
+    <div class="test_nom_input">
+        <input type="text" name="test_nom" id="test_nom_id" placeholder="">
+        <label for="test_nom_id">Test Nomi</label>
+    </div>
+    <div class="test_fan_input">
+        <input type="text" name="test_fan" id="test_fan_id" placeholder="">
+        <label for="test_fan_id">Test Fani</label>
+    </div>
+    <div class="test_tavsif_input">
+        <textarea name="test_tavsif" id="test_tavsif_id" placeholder=""></textarea>
+        <label for="test_tavsif_id">Test Tavsif</label>
+    </div>
+    <div class="test_btn">
+        <div class="inline field">
+            <div class="ui toggle checkbox">
+            <input type="checkbox" tabindex="1" checked="True" class="hidden">
+            <label>Public</label>
+            </div>
+        </div>
+        <button>
+            Test Qo'shish
+        </button>
+    </div>
+</div>
+
+
+<main>
+    <section></section>
+    <section>
+        <div class="container">
+            <div class="section_title">
+                <img src="/static/logo.gif" alt="">
+                <h2>Testlarim</h2>
+            </div>
+            <div class="cards">
+                <div class="card" onclick="card_func()">
+                    <div class="id_star">
+                        <p onclick="copyTextToClipboard(event, 12345678)">12345678</p>
+                        <div class="stars">
+                            <div class="star_no_fill">
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                            </div>
+                            <div class="star_fill">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test_nom">Test nomi</div>
+                    <div class="test_fani">Matematika</div>
+                    <div class="test_tasnif">Boshlang'ich daraja</div>
+                    <div class="test_info">
+                        <div class="test_info_div test_attempt">
+                            <strong>Ishlanishlar: </strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_comment">
+                            <strong>Izohlar:</strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_like_dislike">
+                            <div>
+                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                            <div>
+                                <i class="bi bi-hand-thumbs-down-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action_btns">
+                        <button class="btn btn-outline-primary">Yechish</button>
+                        <button class="btn btn-outline-success">Testlar</button>
+                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
+                        <button class="btn btn-outline-danger">O'chirish</button>
+                    </div>
+                </div>
+            
+                <div class="card" onclick="card_func()">
+                    <div class="id_star">
+                        <p onclick="copyTextToClipboard(event, 12345678)">12345678</p>
+                        <div class="stars">
+                            <div class="star_no_fill">
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                            </div>
+                            <div class="star_fill">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test_nom">Test nomi</div>
+                    <div class="test_fani">Matematika</div>
+                    <div class="test_tasnif">Boshlang'ich daraja</div>
+                    <div class="test_info">
+                        <div class="test_info_div test_attempt">
+                            <strong>Ishlanishlar: </strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_comment">
+                            <strong>Izohlar:</strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_like_dislike">
+                            <div>
+                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                            <div>
+                                <i class="bi bi-hand-thumbs-down-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action_btns">
+                        <button class="btn btn-outline-primary">Yechish</button>
+                        <button class="btn btn-outline-success">Testlar</button>
+                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
+                        <button class="btn btn-outline-danger">O'chirish</button>
+                    </div>
+                </div>
+            
+                <div class="card" onclick="card_func()">
+                    <div class="id_star">
+                        <p onclick="copyTextToClipboard(event, 12345678)">12345678</p>
+                        <div class="stars">
+                            <div class="star_no_fill">
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                            </div>
+                            <div class="star_fill">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test_nom">Test nomi</div>
+                    <div class="test_fani">Matematika</div>
+                    <div class="test_tasnif">Boshlang'ich daraja</div>
+                    <div class="test_info">
+                        <div class="test_info_div test_attempt">
+                            <strong>Ishlanishlar: </strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_comment">
+                            <strong>Izohlar:</strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_like_dislike">
+                            <div>
+                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                            <div>
+                                <i class="bi bi-hand-thumbs-down-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action_btns">
+                        <button class="btn btn-outline-primary">Yechish</button>
+                        <button class="btn btn-outline-success">Testlar</button>
+                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
+                        <button class="btn btn-outline-danger">O'chirish</button>
+                    </div>
+                </div>
+            
+                <div class="card" onclick="card_func()">
+                    <div class="id_star">
+                        <p onclick="copyTextToClipboard(event, 12345678)">12345678</p>
+                        <div class="stars">
+                            <div class="star_no_fill">
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                            </div>
+                            <div class="star_fill">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test_nom">Test nomi</div>
+                    <div class="test_fani">Matematika</div>
+                    <div class="test_tasnif">Boshlang'ich daraja</div>
+                    <div class="test_info">
+                        <div class="test_info_div test_attempt">
+                            <strong>Ishlanishlar: </strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_comment">
+                            <strong>Izohlar:</strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_like_dislike">
+                            <div>
+                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                            <div>
+                                <i class="bi bi-hand-thumbs-down-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action_btns">
+                        <button class="btn btn-outline-primary">Yechish</button>
+                        <button class="btn btn-outline-success">Testlar</button>
+                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
+                        <button class="btn btn-outline-danger">O'chirish</button>
+                    </div>
+                </div>
+            
+                <div class="card" onclick="card_func()">
+                    <div class="id_star">
+                        <p onclick="copyTextToClipboard(event, 12345678)">12345678</p>
+                        <div class="stars">
+                            <div class="star_no_fill">
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                            </div>
+                            <div class="star_fill">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test_nom">Test nomi</div>
+                    <div class="test_fani">Matematika</div>
+                    <div class="test_tasnif">Boshlang'ich daraja</div>
+                    <div class="test_info">
+                        <div class="test_info_div test_attempt">
+                            <strong>Ishlanishlar: </strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_comment">
+                            <strong>Izohlar:</strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_like_dislike">
+                            <div>
+                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                            <div>
+                                <i class="bi bi-hand-thumbs-down-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action_btns">
+                        <button class="btn btn-outline-primary">Yechish</button>
+                        <button class="btn btn-outline-success">Testlar</button>
+                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
+                        <button class="btn btn-outline-danger">O'chirish</button>
+                    </div>
+                </div>
+            
+                <div class="card" onclick="card_func()">
+                    <div class="id_star">
+                        <p onclick="copyTextToClipboard(event, 12345678)">12345678</p>
+                        <div class="stars">
+                            <div class="star_no_fill">
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                            </div>
+                            <div class="star_fill">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test_nom">Test nomi</div>
+                    <div class="test_fani">Matematika</div>
+                    <div class="test_tasnif">Boshlang'ich daraja</div>
+                    <div class="test_info">
+                        <div class="test_info_div test_attempt">
+                            <strong>Ishlanishlar: </strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_comment">
+                            <strong>Izohlar:</strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_like_dislike">
+                            <div>
+                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                            <div>
+                                <i class="bi bi-hand-thumbs-down-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action_btns">
+                        <button class="btn btn-outline-primary">Yechish</button>
+                        <button class="btn btn-outline-success">Testlar</button>
+                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
+                        <button class="btn btn-outline-danger">O'chirish</button>
+                    </div>
+                </div>
+            
+                <div class="card" onclick="card_func()">
+                    <div class="id_star">
+                        <p onclick="copyTextToClipboard(event, 12345678)">12345678</p>
+                        <div class="stars">
+                            <div class="star_no_fill">
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                            </div>
+                            <div class="star_fill">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test_nom">Test nomi</div>
+                    <div class="test_fani">Matematika</div>
+                    <div class="test_tasnif">Boshlang'ich daraja</div>
+                    <div class="test_info">
+                        <div class="test_info_div test_attempt">
+                            <strong>Ishlanishlar: </strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_comment">
+                            <strong>Izohlar:</strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_like_dislike">
+                            <div>
+                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                            <div>
+                                <i class="bi bi-hand-thumbs-down-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action_btns">
+                        <button class="btn btn-outline-primary">Yechish</button>
+                        <button class="btn btn-outline-success">Testlar</button>
+                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
+                        <button class="btn btn-outline-danger">O'chirish</button>
+                    </div>
+                </div>
+            
+                <div class="card" onclick="card_func()">
+                    <div class="id_star">
+                        <p onclick="copyTextToClipboard(event, 12345678)">12345678</p>
+                        <div class="stars">
+                            <div class="star_no_fill">
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                            </div>
+                            <div class="star_fill">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test_nom">Test nomi</div>
+                    <div class="test_fani">Matematika</div>
+                    <div class="test_tasnif">Boshlang'ich daraja</div>
+                    <div class="test_info">
+                        <div class="test_info_div test_attempt">
+                            <strong>Ishlanishlar: </strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_comment">
+                            <strong>Izohlar:</strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_like_dislike">
+                            <div>
+                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                            <div>
+                                <i class="bi bi-hand-thumbs-down-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action_btns">
+                        <button class="btn btn-outline-primary">Yechish</button>
+                        <button class="btn btn-outline-success">Testlar</button>
+                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
+                        <button class="btn btn-outline-danger">O'chirish</button>
+                    </div>
+                </div>
+            
+                <div class="card" onclick="card_func()">
+                    <div class="id_star">
+                        <p onclick="copyTextToClipboard(event, 12345678)">12345678</p>
+                        <div class="stars">
+                            <div class="star_no_fill">
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                            </div>
+                            <div class="star_fill">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test_nom">Test nomi</div>
+                    <div class="test_fani">Matematika</div>
+                    <div class="test_tasnif">Boshlang'ich daraja</div>
+                    <div class="test_info">
+                        <div class="test_info_div test_attempt">
+                            <strong>Ishlanishlar: </strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_comment">
+                            <strong>Izohlar:</strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_like_dislike">
+                            <div>
+                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                            <div>
+                                <i class="bi bi-hand-thumbs-down-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action_btns">
+                        <button class="btn btn-outline-primary">Yechish</button>
+                        <button class="btn btn-outline-success">Testlar</button>
+                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
+                        <button class="btn btn-outline-danger">O'chirish</button>
+                    </div>
+                </div>
+            
+                <div class="card" onclick="card_func()">
+                    <div class="id_star">
+                        <p onclick="copyTextToClipboard(event, 12345678)">12345678</p>
+                        <div class="stars">
+                            <div class="star_no_fill">
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                            </div>
+                            <div class="star_fill">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test_nom">Test nomi</div>
+                    <div class="test_fani">Matematika</div>
+                    <div class="test_tasnif">Boshlang'ich daraja</div>
+                    <div class="test_info">
+                        <div class="test_info_div test_attempt">
+                            <strong>Ishlanishlar: </strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_comment">
+                            <strong>Izohlar:</strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_like_dislike">
+                            <div>
+                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                            <div>
+                                <i class="bi bi-hand-thumbs-down-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action_btns">
+                        <button class="btn btn-outline-primary">Yechish</button>
+                        <button class="btn btn-outline-success">Testlar</button>
+                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
+                        <button class="btn btn-outline-danger">O'chirish</button>
+                    </div>
+                </div>
+            
+                <div class="card" onclick="card_func()">
+                    <div class="id_star">
+                        <p onclick="copyTextToClipboard(event, 12345678)">12345678</p>
+                        <div class="stars">
+                            <div class="star_no_fill">
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                                <span class="bi bi-star"></span>
+                            </div>
+                            <div class="star_fill">
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                                <span class="bi bi-star-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test_nom">Test nomi</div>
+                    <div class="test_fani">Matematika</div>
+                    <div class="test_tasnif">Boshlang'ich daraja</div>
+                    <div class="test_info">
+                        <div class="test_info_div test_attempt">
+                            <strong>Ishlanishlar: </strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_comment">
+                            <strong>Izohlar:</strong>
+                            <p>100 ta</p>
+                        </div>
+                        <div class="test_info_div test_like_dislike">
+                            <div>
+                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                            <div>
+                                <i class="bi bi-hand-thumbs-down-fill"></i>
+                                <p>
+                                    100
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action_btns">
+                        <button class="btn btn-outline-primary">Yechish</button>
+                        <button class="btn btn-outline-success">Testlar</button>
+                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
+                        <button class="btn btn-outline-danger">O'chirish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+<script>
+
+    function card_func(){
+        alert('card')
+    }
+
+
+    function test_edit_func(e, id){
+        e.stopPropagation()
+        document.getElementById('test_edit_id').value = id
+        plus_modal_open(1);
+    }
+
+
+
+    function plus_modal_open(i){
+        let plus_modal = document.querySelector('.plus_modal')
+        let x_plus_modal = document.querySelector('.x_plus_modal')
+        if (i==0){
+            plus_modal.style.right = '-60%'
+            x_plus_modal.style.width='0'
+        }
+        else{
+            plus_modal.style.right = '0%'
+            x_plus_modal.style.width='100%'
+        }
+    }
+    let cards = document.querySelector('.cards')
+    let card = cards.innerHTML
+    for(let i=0; i<10; i++){
+        cards.innerHTML+=card
+        // cards.innerHTML+=`
+        //     <div class="card">
+        //             <div class="id_star">
+        //                 <p onclick="copyTextToClipboard(12345678)">12345678</p>
+        //                 <div class="stars">
+        //                     <div class="star_no_fill">
+        //                         <span class="bi bi-star"></span>
+        //                         <span class="bi bi-star"></span>
+        //                         <span class="bi bi-star"></span>
+        //                         <span class="bi bi-star"></span>
+        //                         <span class="bi bi-star"></span>
+        //                     </div>
+        //                     <div class="star_fill">
+        //                         <span class="bi bi-star-fill"></span>
+        //                         <span class="bi bi-star-fill"></span>
+        //                         <span class="bi bi-star-fill"></span>
+        //                         <span class="bi bi-star-fill"></span>
+        //                         <span class="bi bi-star-fill"></span>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //             <div class="test_nom">Test nomi</div>
+        //             <div class="test_fani">Matematika</div>
+        //             <div class="test_tasnif">Boshlang'ich daraja</div>
+        //             <div class="test_info">
+        //                 <div class="test_attempt">
+        //                     <strong>Ishlanishlar: </strong>
+        //                     <p>100 ta</p>
+        //                 </div>
+        //                 <div class="test_comment">
+        //                     <strong>Izohlar:</strong>
+        //                     <p>100 ta</p>
+        //                 </div>
+        //                 <div class="test_like_dislike">
+        //                     <div>
+        //                         <i class="bi bi-hand-thumbs-up-fill"></i>
+        //                         <p>
+        //                             100
+        //                         </p>
+        //                     </div>
+        //                     <div>
+        //                         <i class="bi bi-hand-thumbs-down-fill"></i>
+        //                         <p>
+        //                             100
+        //                         </p>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //             <div class="action_btns">
+        //                 <button class="btn btn-outline-primary">Yechish</button>
+        //                 <button class="btn btn-outline-success">Testlar</button>
+        //                 <button class="btn btn-outline-info">Tahrirlash</button>
+        //                 <button class="btn btn-outline-danger">O'chirish</button>
+        //             </div>
+        //         </div>
+        // `
+    }
+    $('.ui.checkbox').checkbox();
+
+
+
+    async function copyTextToClipboard(event, text) {
+        event.stopPropagation()
+        
+  try {
+    await navigator.clipboard.writeText(text);
+    console.log('Text copied to clipboard successfully!');
+  } catch (err) {
+    console.error('Failed to copy text: ', err);
+  }
+}
+
+</script>
+
+
+
+
+
+
+
+
+  
+
+
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("navLinks");
+      nav.classList.toggle("show");
+    }
+    function icon_time_func(btn){
+      let body_el = document.querySelector('body')
+      if(btn.classList[2]=='bi-brightness-high'){
+        btn.classList.remove('bi-brightness-high')
+        btn.classList.add('bi-moon')
+        body_el.classList.remove('kun')
+        body_el.classList.add('tun')
+      }
+      else{
+        btn.classList.remove('bi-moon')
+        btn.classList.add('bi-brightness-high')
+        body_el.classList.remove('tun')
+        body_el.classList.add('kun')
+      }
+    }
+  </script></body>
