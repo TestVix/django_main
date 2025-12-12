@@ -20,8 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*)yk-y=5@h37n%_u@&hj4n@db^g(a&(d6@4yycn6z+8og=qblv'
-
+SECRET_KEY = 'django-insecure-wi6(etcqol1rtepnnil59jonus31oyu-v3c$l$h(#&3%*hdeu5'
+Algorithm = "HS256"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+MIDDLEWARE.insert(0, "django_main.middleware.JWTAuthMiddleware")
 
 ROOT_URLCONF = 'django_main.urls'
 
@@ -88,6 +89,10 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = [
+    "django_main.auth_backends.JWTBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

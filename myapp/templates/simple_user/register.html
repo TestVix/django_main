@@ -40,7 +40,7 @@
         padding: 0 10px;
         transition: all 0.3s linear;
     }
-    .register_div input:focus+label, .register_div:not(:placeholder-shown)+label{
+    .register_div input:focus+label, .register_div input:not(:placeholder-shown)+label{
         top: 10px;
         background-color: white;
         color: rgb(39, 129, 255);
@@ -55,6 +55,11 @@
         color: white;
         font-size: 20px;
     }
+    .msg_show{
+        color: red;
+        font-size: 16px;
+        width: 100%;
+    }
 </style>
 
 
@@ -62,7 +67,7 @@
     <h2>
         Register
     </h2>
-    <div class="register_div">
+    <form class="register_div" action="">
         <div>
             <input type="text" name="fio" id="fio" placeholder="">
             <label for="fio">First Name</label>
@@ -83,12 +88,42 @@
             <input type="text" name="password2" id="password2" placeholder="">
             <label for="password2">Return Password</label>
         </div>
-        <button>
+        <button type="submit">
             Register
         </button>
-    </div>
+        <div>
+            <p class="msg_show"> 
+            </p>
+        </div>
+    </form>
 </div>
 
-
+<script>
+    // window.location.href = 'salom/'
+    document.querySelector('.register_div').addEventListener('submit', async (e)=>{
+        // alert('sa')
+        // e.stopPropagation()
+        // e.defaultPrevented()
+        e.preventDefault()
+        fio = document.getElementById('fio').value;
+        email = document.getElementById('email').value;
+        username = document.getElementById('username').value;
+        password1 = document.getElementById('password1').value;
+        password2 = document.getElementById('password2').value;
+        let res = await fetch('http://127.0.0.1:8002/register/', {
+            method: 'POST',
+            credentials: "include", 
+            headers: {
+            'Content-Type': 'application/json'
+        },
+            body: JSON.stringify({
+                fio, email, username, password1, password2
+            })
+        })
+        let data = await res.json()
+        document.querySelector('.msg_show').innerHTML = data.message
+        window.location.href = data.redirect
+    })
+</script>
 
 {% endblock %}
