@@ -1,0 +1,125 @@
+{% extends 'simple_user/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <style>
+        body{
+            background: linear-gradient(45deg, rgb(110, 2, 199), aqua);
+            background-size: 100% calc(300% + 80px);
+        }
+        .login_container{
+            position: relative;
+            top: 100px;
+            margin: 0 auto;
+            text-align: center;
+            width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            background-color: rgba(255, 255, 255, 0.281);
+        }
+        .login_container h2{
+            margin: 0;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 30px;
+        }
+        .login_div{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .login_div div{
+            display: flex;
+            position: relative;
+            justify-content: space-between;
+        }
+        .login_div input{
+            width: 100%;
+            padding: 10px 10px 10px 35px;
+            border: 3px solid rgb(0, 46, 229);
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s linear;
+        }
+        .login_div input:focus{
+            padding: 20px 10px 10px 35px;
+        }
+        .login_div input:not(:placeholder-shown){
+            padding: 20px 10px 10px 35px;
+        }
+        .login_div label{
+            position: absolute;
+            top: 13px;
+            left: 30px;
+            background-color: rgba(255, 255, 255, 0.281);
+            padding: 0 5px;
+            font-size: 16px;
+            color: black;
+            transition: all 0.3s ease;
+        }
+        .login_div input:focus +label, .login_div input:not(:placeholder-shown) +label{
+            top: 5px;
+            font-size: 16px;
+            color: rgb(0, 46, 229);
+        }
+
+
+        .login_div i{
+            position: absolute;
+            left: 10px;
+            top: 20px;
+            transform: translateY(-50%);
+            color: rgb(0, 46, 229);
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        .login_div input:focus ~ i{
+            top: 30px;
+        }
+        .login_div div a{
+            font-size: 16px;
+            color: white;
+        }
+        .login_div div a:hover{
+            text-decoration: underline;
+        }
+        .login_div button{
+            padding: 10px;
+            border: none;
+            background: linear-gradient(45deg, rgb(157, 0, 255), aqua 100%);
+            color: white;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+    <div class="login_container">
+        <h2>
+            Login
+        </h2>
+        <div class="login_div">
+            <div>
+                <input type="text" id="username" name="username" placeholder="">
+                <label for="username">Username</label>
+                <i class="bi bi-person"></i>
+            </div>
+            <div>
+                <input type="password" id="password" name="password" placeholder="">
+                <label for="password">Password</label>
+                <i class="bi bi-lock"></i>
+            </div>
+            <div>
+                <a href="#">Parol esdan chiqdimi</a>
+                <a href="#">Sing up</a>
+            </div>
+            <button>
+                Login
+            </button>
+        </div>
+    </div>
+
+
+
+{% endblock %}

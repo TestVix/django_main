@@ -1,0 +1,168 @@
+{% extends 'simple_user/base.html' %}
+{% block title %}Testlar{% endblock %}
+{% block content %}
+
+
+<style>
+    
+    p, h2, i{
+        margin: 0;
+        padding: 0;
+    }
+    .container{
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1300px;
+    }
+    .cards{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+    }
+    .card{
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgb(138, 138, 138, 0.6);
+        /* max-width: 300px; */
+        /* width: 100%; */
+        transition: 0.2s ease;
+    }
+    .card:hover {
+    /* transform: translateY(-3px); */
+    scale: 1.01;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+    .id_star{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .id_star p{
+        padding: 5px 10px;
+        background-color: #0898ff;
+        color: white;
+        border-radius: 4px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    .id_star div{
+        font-size: 20px;
+    }
+    .test_fani{
+        font-size: 24px;
+        /* color: ; */
+        margin-top: 10px;
+    }
+    .test_tasnif{
+        font-size: 18px;
+        color: rgb(80, 80, 80);
+        margin-top: 10px;
+    }
+
+    .user_info{
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .user_info h2{
+        font-size: 20px;
+    }
+    .user_info div div{
+        display: flex;
+        gap: 5px;
+    }
+    .user_info img{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="cards">
+            <div class="card">
+                <div class="id_star">
+                    <p>12345678</p>
+                    <div>
+                        <span>
+                            4.5
+                        </span>
+                        <i class="bi bi-star">⭐️</i>
+                    </div>
+                </div>
+                <div class="test_info">
+                    <div class="test_fani">
+                        <p>Test fani</p>
+                    </div>
+                    <div class="test_tasnif">
+                        <p>Test tasnif</p>
+                    </div>
+                </div>
+                <div class="user_info">
+                    <img src="" alt="">
+                    <div>
+                        <div>
+                            <h2>Test Nomi</h2>
+                        </div>
+                        <div>
+                            <p>username</p>
+                            <span>•</span>
+                            <p>
+                                5 marta
+                            </p>
+                            <span>•</span>
+                            <p>3 oy oldin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cards = document.querySelector('.cards')
+        for(let i = 0; i<10; i++){
+            cards.innerHTML+= `
+                <div class="card">
+                <div class="id_star">
+                    <p>12345678</p>
+                    <div>
+                        <span>
+                            4.5
+                        </span>
+                        <i class="bi bi-star">⭐️</i>
+                    </div>
+                </div>
+                <div class="test_info">
+                    <div class="test_fani">
+                        <p>Test fani</p>
+                    </div>
+                    <div class="test_tasnif">
+                        <p>Test tasnif</p>
+                    </div>
+                </div>
+                <div class="user_info">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1TduTnXQi3ZSKVwMHsoTRUwgAX7yN7VMRoA&s" alt="">
+                    <div>
+                        <div>
+                            <h2>Test Nomi</h2>
+                        </div>
+                        <div>
+                            <p>username</p>
+                            <span>•</span>
+                            <p>
+                                5 marta
+                            </p>
+                            <span>•</span>
+                            <p>3 oy oldin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
+        }
+    </script>
+</body>
+{% endblock %}

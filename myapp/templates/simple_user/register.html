@@ -1,0 +1,94 @@
+{% extends 'simple_user/base.html' %}
+{% block title %} Sing Up  {% endblock %}
+
+
+{% block content %}
+
+<style>
+    
+    .register_container{
+        width: 400px;
+        margin: 0 auto;
+        margin-top: 100px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(128, 128, 128, 0.305);
+        text-align: center;
+    }
+    .register_container h2{
+        font-size: 25px;
+        margin: 0;
+    }
+    .register_div div{
+        position: relative;
+        display: flex;
+    }
+    .register_div input{
+        width: 100%;
+        padding: 10px 10px 10px 20px;
+        border-radius: 5px;
+        outline: none;
+        border: 3px solid rgb(39, 129, 255);
+        margin-top: 20px;
+        font-size: 20px;
+    }
+    .register_div label{
+        position: absolute;
+        top: 30px;
+        left: 10px;
+        font-size: 20px;
+        padding: 0 10px;
+        transition: all 0.3s linear;
+    }
+    .register_div input:focus+label, .register_div:not(:placeholder-shown)+label{
+        top: 10px;
+        background-color: white;
+        color: rgb(39, 129, 255);
+    }
+    .register_div button{
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        border: 0;
+        margin-top: 20px;
+        background: rgb(151, 7, 218);
+        color: white;
+        font-size: 20px;
+    }
+</style>
+
+
+<div class="register_container">
+    <h2>
+        Register
+    </h2>
+    <div class="register_div">
+        <div>
+            <input type="text" name="fio" id="fio" placeholder="">
+            <label for="fio">First Name</label>
+        </div>
+        <div>
+            <input type="text" name="email" id="email" placeholder="">
+            <label for="email">Email</label>
+        </div>
+        <div>
+            <input type="text" name="username" id="username" placeholder="">
+            <label for="username">Username</label>
+        </div>
+        <div>
+            <input type="text" name="password1" id="password1" placeholder="">
+            <label for="password1">Password</label>
+        </div>
+        <div>
+            <input type="text" name="password2" id="password2" placeholder="">
+            <label for="password2">Return Password</label>
+        </div>
+        <button>
+            Register
+        </button>
+    </div>
+</div>
+
+
+
+{% endblock %}
