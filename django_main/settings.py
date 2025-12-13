@@ -21,7 +21,7 @@ fast_api_account_domain_http = [
 ]
 fast_api_account_domain_name = [
     '127.0.0.1:8002',
-    'fast_api_account.onrender.com'
+    'fast-api-account.onrender.com'
 ]
 fast_api_account_domain = fast_api_account_domain_http[fast_api_account_index] + fast_api_account_domain_name[fast_api_account_index]
 
