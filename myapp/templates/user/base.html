@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/gif" href="{% static 'logo.gif' %}">
+    <link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title> 
+        {% block title %}Testlar{% endblock %}
+    </title>
+
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    nav{
+        display: flex;
+        position: fixed;
+        width: calc(100% );
+        top: 0;
+        left: 0;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 50px;
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        z-index: 100;
+    }
+    nav .home_div_a{
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        list-style: none;
+        text-decoration: none;
+    }
+    nav .home_div_a h2{
+        background: linear-gradient(45deg, rgb(170, 0, 218), aqua);
+        /* background-clip: text; */
+        color: white;
+        padding: 5px 15px;
+        border-radius: 5px;
+        font-size: 25px;
+        margin: 0;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    ul, li, a{
+        text-decoration: none;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    nav .home_div_a img{
+        border-radius: 50%;
+    }
+    nav ul{
+        list-style: none;
+        display: flex;
+        gap: 30px;
+    }
+    .active_page{
+        background: linear-gradient(45deg, rgb(170, 0, 218), aqua);
+        color: white;
+    }
+    nav ul a{
+        padding: 10px 30px;
+        background: linear-gradient(45deg, rgb(170, 0, 218), aqua);
+        background-clip: text;
+        color: transparent;
+        font-size: 20px;
+        border-radius: 5px;
+    }
+    #sing_up_a{
+        border: 2px solid rgb(151, 7, 218);
+        color: rgb(151, 7, 218);
+        border-radius: 0;
+        /* margin-left: 30px; */
+    }
+    #sing_up_a:hover{
+        background: rgb(151, 7, 218);
+        color: white;
+    }
+    
+    nav ul a:hover{
+        background: linear-gradient(45deg, rgb(170, 0, 218, 0.5), rgba(0, 255, 255, 0.5));
+        color: white;
+    }
+    
+    .margin_div{
+        height: 70px;
+        background-color: rgb(255, 255, 255);
+    }
+
+    .menu-icon{
+        display: none;
+    }
+    @media (max-width: 780px) {
+        nav{
+            width: calc(100% - 40px);
+            padding: 10px 20px;
+        }
+        .menu-icon{
+            display: block;
+            cursor: pointer;
+            padding: 10px 15px;
+        }
+        .menu-icon:hover{
+            background-color: rgb(225, 248, 255);
+            /* padding: ; */
+        }
+        .menu-icon div{
+            width: 25px;
+            height: 3px;
+            background-color: black;
+            margin: 5px 0;
+            transition: all 0.3s linear;
+        }
+        nav ul{
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            flex-direction: column;
+            align-items: center;
+            /* text-align: center; */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        nav ul.show{
+            max-height: 300px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            /* text-align: center; */
+        }
+        nav ul li{
+            margin: 15px 0;
+            /* background-color: red; */
+        }
+    }
+    
+</style>
+
+</head>
+<body>
+
+    <nav>
+        <a class="home_div_a" href="">
+            <img src="{% static 'logo.gif' %}" alt="Logo" width="50" height="50">
+            <h2>
+                TestVix
+            </h2>
+        </a>
+        <div class="menu-icon" onclick="menu_icon_func()">
+            <div class="menu_icon_1"></div>
+            <div class="menu_icon_2"></div>
+            <div class="menu_icon_3"></div>
+        </div>
+        <ul class="">
+            <li><a href="{% url 'myapp:home' %}" class="active_page" >Testlar</a></li>
+            <li><a href="{% url 'myapp:testlarim' %}">Testlarim</a></li>
+            <li><a href="{% url 'myapp:home' %}">Profil</a></li>
+            <li><a href="{% url 'myapp:home' %}" id="sing_up_a">Chiqish</a></li>
+        </ul>
+    </nav>
+    <div class="margin_div"></div>
+    {% block content %}{% endblock %}
+
+    <script>
+
+        function menu_icon_func(){
+            const nav_ul = document.querySelector('nav ul');
+            nav_ul.classList.toggle('show');
+            document.querySelector('.menu_icon_1').style.transform = nav_ul.classList.contains('show') ? 'rotate(45deg) translate(5px, 5px)' : 'rotate(0) translate(0, 0)';
+            document.querySelector('.menu_icon_2').style.opacity = nav_ul.classList.contains('show') ? '0' : '1';
+            //  = nav_ul.classList.contains('show') ? 'rotate(45deg) translate(5px, 5px)' : 'rotate(0) translate(0, 0)';
+            document.querySelector('.menu_icon_3').style.transform = nav_ul.classList.contains('show') ? 'rotate(-45deg) translate(5px, -5px)' : 'rotate(0) translate(0, 0)';
+        }
+
+
+
+
+        if (window.location.pathname === '/'){
+            document.querySelectorAll('nav ul li a').forEach(el => {
+                el.classList.remove('active_page');
+            });
+            document.querySelectorAll('nav ul li a')[0].classList.add('active_page');
+        }
+        if (window.location.pathname === '/testlarim/'){
+            document.querySelectorAll('nav ul li a').forEach(el => {
+                el.classList.remove('active_page');
+            });
+            document.querySelectorAll('nav ul li a')[1].classList.add('active_page');
+        }
+        if (window.location.pathname === '/register/'){
+            document.querySelectorAll('nav ul li a').forEach(el=>{
+                el.classList.remove('active_page')
+            })
+            document.querySelectorAll('nav ul li a')[2].style.background = 'rgb(151, 7, 218)';
+            document.querySelectorAll('nav ul li a')[2].style.color = 'white'; 
+
+        }
+    </script>
+</body>
+</html>

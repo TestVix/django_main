@@ -14,7 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-fast_api_account_index = 1
+fast_api_account_index = 0
 fast_api_account_domain_http = [
     'http://',
     'https://'
@@ -94,26 +94,26 @@ ASGI_APPLICATION = "django_main.asgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',             # URLdagi db name
-        'USER': 'postgres',            # URLdagi username
-        'PASSWORD': 'PKTuIQdQdtBnfEzZIptJQqdEAaFEBFem',        # URLdagi password
-        'HOST': 'trolley.proxy.rlwy.net', # URLdagi host
-        'PORT': '43635',               # URLdagi port
-    }
-}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'mytestbaza',             # URLdagi db name
+#         'NAME': 'railway',             # URLdagi db name
 #         'USER': 'postgres',            # URLdagi username
-#         'PASSWORD': 'qoty_qouy_2006',        # URLdagi password
-#         'HOST': 'localhost', # URLdagi host
-#         'PORT': '5432',               # URLdagi port
+#         'PASSWORD': 'PKTuIQdQdtBnfEzZIptJQqdEAaFEBFem',        # URLdagi password
+#         'HOST': 'trolley.proxy.rlwy.net', # URLdagi host
+#         'PORT': '43635',               # URLdagi port
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mytestbaza',             # URLdagi db name
+        'USER': 'postgres',            # URLdagi username
+        'PASSWORD': 'qoty_qouy_2006',        # URLdagi password
+        'HOST': 'localhost', # URLdagi host
+        'PORT': '5432',             # URLdagi port
+    }
+}
 
 AUTHENTICATION_BACKENDS = [
     "django_main.auth_backends.JWTBackend",
