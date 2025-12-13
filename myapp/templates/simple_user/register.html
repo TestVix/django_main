@@ -110,7 +110,7 @@
         username = document.getElementById('username').value;
         password1 = document.getElementById('password1').value;
         password2 = document.getElementById('password2').value;
-        let res = await fetch('http://127.0.0.1:8002/register/', {
+        let res = await fetch('{{fast_api_account_domain}}/register/', {
             method: 'POST',
             credentials: "include", 
             headers: {
@@ -122,7 +122,9 @@
         })
         let data = await res.json()
         document.querySelector('.msg_show').innerHTML = data.message
-        window.location.href = data.redirect
+        if(data.redirect){
+            window.location.href = data.redirect
+        }
     })
 </script>
 

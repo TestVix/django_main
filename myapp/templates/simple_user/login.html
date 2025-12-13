@@ -94,11 +94,16 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+        .msg_show{
+            color: red;
+            font-size: 16px;
+        }
     </style>
-    <div class="login_container">
+    <form class="login_container">
         <h2>
             Login
         </h2>
+        <p class="msg_show"></p>
         <div class="login_div">
             <div>
                 <input type="text" id="username" name="username" placeholder="">
@@ -118,8 +123,33 @@
                 Login
             </button>
         </div>
-    </div>
+    </form>
 
-
+<script>
+    document.querySelector('.login_container').addEventListener('submit', async (e)=>{
+        e.preventDefault()
+        let username = document.getElementById('username').value
+        let password = document.getElementById('password').value
+        let res = await fetch('{{fast_api_account_domain}}/login/', {
+            method : 'POST',
+            credentials: "include", 
+            headers: {
+            'Content-Type': 'application/json'
+        },
+            body: JSON.stringify({
+                username, password
+            })
+        })
+        let data = await res.json()
+        console.log(data);
+        console.log(data.message);
+        
+        
+        document.querySelector('.msg_show').innerHTML = data.message
+        if (data.redirect){
+            window.location.href = data.redirect
+        }
+    })
+</script>
 
 {% endblock %}

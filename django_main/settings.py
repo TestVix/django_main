@@ -14,6 +14,18 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+fast_api_account_index = 1
+fast_api_account_domain_http = [
+    'http://',
+    'https://'
+]
+fast_api_account_domain_name = [
+    '127.0.0.1:8002',
+    'fast_api_account.onrender.com'
+]
+fast_api_account_domain = fast_api_account_domain_http[fast_api_account_index] + fast_api_account_domain_name[fast_api_account_index]
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,11 +38,11 @@ Algorithm = "HS256"
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'django_main-2.orrender.com',
     'django-main-1.onrender.com',
     'localhost',
     '127.0.0.1'
 ]
+AUTH_USER_MODEL = 'myapp.AuthUser'
 
 
 
@@ -84,10 +96,24 @@ ASGI_APPLICATION = "django_main.asgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',             # URLdagi db name
+        'USER': 'postgres',            # URLdagi username
+        'PASSWORD': 'PKTuIQdQdtBnfEzZIptJQqdEAaFEBFem',        # URLdagi password
+        'HOST': 'trolley.proxy.rlwy.net', # URLdagi host
+        'PORT': '43635',               # URLdagi port
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'mytestbaza',             # URLdagi db name
+#         'USER': 'postgres',            # URLdagi username
+#         'PASSWORD': 'qoty_qouy_2006',        # URLdagi password
+#         'HOST': 'localhost', # URLdagi host
+#         'PORT': '5432',               # URLdagi port
+#     }
+# }
 
 AUTHENTICATION_BACKENDS = [
     "django_main.auth_backends.JWTBackend",
