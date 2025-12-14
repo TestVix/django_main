@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # from jwt_auth import jwt_required
 from django_main.jwt_auth import jwt_required
 from django.http import JsonResponse
@@ -29,7 +29,8 @@ def login(request):
     return render(request, 'simple_user/login.html', {'fast_api_account_domain': fast_api_account_domain})
 def register(request):
     return render(request, 'simple_user/register.html', {'fast_api_account_domain': fast_api_account_domain})
-
+def logout_view(request):
+    return render(request, 'simple_user/login.html')
 
 @jwt_required
 def testlarim(request):
@@ -38,4 +39,16 @@ def testlarim(request):
     testlar = Testlar.objects.filter(user_id = user_id).all()
     return render(request, 'user/testlarim.html' , {
         'testlar': testlar
+    })
+
+def admin_user(request):
+    if request.method == 'POST':
+        if 'delete' in  request.POST:
+            user_id = request.POST.get('delete')
+            AuthUser.objects.filter(id=user_id).delete()
+            return redirect('myapp:admin_user')
+
+    users= AuthUser.objects.all()
+    return render(request, 'admin/users.html', {
+        'users': users
     })

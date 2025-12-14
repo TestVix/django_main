@@ -153,7 +153,7 @@
 <body>
 
     <nav>
-        <a class="home_div_a" href="">
+        <a class="home_div_a" href="{% url 'myapp:home' %}">
             <img src="{% static 'logo.gif' %}" alt="Logo" width="50" height="50">
             <h2>
                 TestVix
@@ -168,14 +168,21 @@
             <li><a href="{% url 'myapp:home' %}" class="active_page" >Testlar</a></li>
             <li><a href="{% url 'myapp:testlarim' %}">Testlarim</a></li>
             <li><a href="{% url 'myapp:home' %}">Profil</a></li>
-            <li><a href="{% url 'myapp:home' %}" id="sing_up_a">Chiqish</a></li>
+            <li><a href="{% url 'myapp:logout' %}" id="sing_up_a" onclick="logout_func()">Chiqish</a></li>
         </ul>
     </nav>
     <div class="margin_div"></div>
     {% block content %}{% endblock %}
 
     <script>
+        async function logout_func(){
+            let res = await fetch('http://127.0.0.1:8002/logout/', {
+                credentials : 'include'
+            })
+            let data = await res.json()
+            window.location.href = data.redirect
 
+        }
         function menu_icon_func(){
             const nav_ul = document.querySelector('nav ul');
             nav_ul.classList.toggle('show');

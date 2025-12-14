@@ -285,6 +285,83 @@
         padding: 10px;
         font-size: 13px;
     }
+    .one_info{
+        background-color: white;
+        box-shadow: 0 0 10px rgba(128, 128, 128, 0.315);
+        text-align: center;
+        border-radius: 10px;
+        padding: 40px;
+    }
+    .one_info span{
+        font-size: 20px;
+        color: rgb(255, 0, 0);
+    }
+    .one_info p{
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .delet_modal_form{
+        position: fixed;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(128, 128, 128, 0.425);
+        border-radius: 10px;
+        overflow: hidden;
+        z-index: 1000;
+        width: 500px;
+        left: calc(50% - 250px);
+        text-align: center;
+        top: -50%;
+        transition: all 0.3s linear;
+    }
+    .delet_modal_form h2{
+        display: flex;
+        background-color: red;
+        margin: 0;
+        padding: 2px 10px;
+        font-size: 18px;
+        color: white;
+    }
+    .delet_modal_form p{
+        padding: 10px 40px;
+        font-size: 20px;
+    }
+    .delet_modal_form span{
+        font-size: 25px;
+        color: red;
+    }
+    .delet_modal_form div{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 10px;
+        box-sizing: border-box;
+        border-top: 2px solid rgba(128, 128, 128, 0.251);
+    }
+    .delet_modal_form button{
+        padding: 5px 20px;
+        background-color: white;
+        border: 0;
+        border-radius: 5px;
+        color: white;
+        font-size: 20px;
+    }
+    .delet_modal_form div button:nth-child(1){
+        background-color: red;
+    }
+    .delet_modal_form div button:nth-child(2){
+        background-color: rgb(128, 128, 128);
+    }
+    .delete_modal_back{
+        z-index: 999;
+        position: fixed;
+        width: 100%;
+        height: 0;
+        top: 0;
+        left: 0;
+        transition: all 0.3s linear;
+        background-color: rgba(128, 128, 128, 0.308);
+    }
 </style>
 
 <div class="plus_test">
@@ -331,6 +408,24 @@
 </form>
 
 
+<!-- #############   testni ochirish ############  -->
+<div class="delete_modal_back" onclick="delete_modal('0')"></div>
+ <div action="" class="delet_modal_form">
+    <input type="hidden" id="delete_test_id">
+    <h2>
+        Testni o'chirish 
+    </h2>
+    <span id="delete_test_nom">Test nom</span>
+    <p>
+        Haqiqatdan ham o'chirasizmi.
+    </p>
+    <div>
+        <button onclick="delete_test_fetch(document.getElementById('delete_test_id').value)">Ha</button>
+        <button onclick="delete_modal('0')">Bekor qilish</button>
+    </div>
+</div>
+
+
 <main>
     <section></section>
     <section>
@@ -340,62 +435,73 @@
                 <h2>Testlarim</h2>
             </div>
             <div class="cards">
-                {% for test in testlar %}
-                <div class="card" onclick="card_func()">
-                    <div class="id_star">
-                        <p onclick="copyTextToClipboard(event, '{{test_id}}')">{{test.test_id}} </p>
-                        <div class="stars">
-                            <div class="star_no_fill">
-                                <span class="bi bi-star"></span>
-                                <span class="bi bi-star"></span>
-                                <span class="bi bi-star"></span>
-                                <span class="bi bi-star"></span>
-                                <span class="bi bi-star"></span>
+                {% if testlar %}
+                    {% for test in testlar %}
+                    <div class="card" id="test_card_id_{{test.test_id}}">
+                        <div class="id_star">
+                            <p onclick="copyTextToClipboard(event, '{{test_id}}')">{{test.test_id}} </p>
+                            <div class="stars">
+                                <div class="star_no_fill">
+                                    <span class="bi bi-star"></span>
+                                    <span class="bi bi-star"></span>
+                                    <span class="bi bi-star"></span>
+                                    <span class="bi bi-star"></span>
+                                    <span class="bi bi-star"></span>
+                                </div>
+                                <div class="star_fill">
+                                    <span class="bi bi-star-fill"></span>
+                                    <span class="bi bi-star-fill"></span>
+                                    <span class="bi bi-star-fill"></span>
+                                    <span class="bi bi-star-fill"></span>
+                                    <span class="bi bi-star-fill"></span>
+                                </div>
                             </div>
-                            <div class="star_fill">
-                                <span class="bi bi-star-fill"></span>
-                                <span class="bi bi-star-fill"></span>
-                                <span class="bi bi-star-fill"></span>
-                                <span class="bi bi-star-fill"></span>
-                                <span class="bi bi-star-fill"></span>
+                        </div>
+                        <div class="test_nom">{{test.nom}} </div>
+                        <div class="test_fani">{{test.fan}}</div>
+                        <div class="test_tasnif">{{test.tavsif}} </div>
+                        <div class="test_info">
+                            <div class="test_info_div test_attempt">
+                                <strong>Ishlanishlar: </strong>
+                                <p>100 ta</p>
                             </div>
+                            <div class="test_info_div test_comment">
+                                <strong>Izohlar:</strong>
+                                <p>100 ta</p>
+                            </div>
+                            <div class="test_info_div test_like_dislike">
+                                <div>
+                                    <i class="bi bi-hand-thumbs-up-fill"></i>
+                                    <p>
+                                        100
+                                    </p>
+                                </div>
+                                <div>
+                                    <i class="bi bi-hand-thumbs-down-fill"></i>
+                                    <p>
+                                        100
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action_btns">
+                            <button class="btn btn-outline-primary">Yechish</button>
+                            <button class="btn btn-outline-success">Testlar</button>
+                            <button class="btn btn-outline-info" onclick="test_edit_func(event, '{{test.test_id}}')">Tahrirlash</button>
+                            <button class="btn btn-outline-danger" onclick="delete_modal('1', '{{test.test_id}}', '{{test.nom}}')">O'chirish</button>
                         </div>
                     </div>
-                    <div class="test_nom">{{test.nom}} </div>
-                    <div class="test_fani">{{test.fan}}</div>
-                    <div class="test_tasnif">{{test.tavsif}} </div>
-                    <div class="test_info">
-                        <div class="test_info_div test_attempt">
-                            <strong>Ishlanishlar: </strong>
-                            <p>100 ta</p>
-                        </div>
-                        <div class="test_info_div test_comment">
-                            <strong>Izohlar:</strong>
-                            <p>100 ta</p>
-                        </div>
-                        <div class="test_info_div test_like_dislike">
-                            <div>
-                                <i class="bi bi-hand-thumbs-up-fill"></i>
-                                <p>
-                                    100
-                                </p>
-                            </div>
-                            <div>
-                                <i class="bi bi-hand-thumbs-down-fill"></i>
-                                <p>
-                                    100
-                                </p>
-                            </div>
-                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="one_info">
+                        <p>
+                            Hozir sizda hech qanday testlar yo'q.
+                        </p>
+                        <p>
+                            Test qo'shish uchun <span>Plus</span> belgisini bosing va testlar qo'shing.
+                        </p>
                     </div>
-                    <div class="action_btns">
-                        <button class="btn btn-outline-primary">Yechish</button>
-                        <button class="btn btn-outline-success">Testlar</button>
-                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
-                        <button class="btn btn-outline-danger">O'chirish</button>
-                    </div>
-                </div>
-                {% endfor %}
+                {% endif %}
             </div>
         </div>
     </section>
@@ -410,6 +516,57 @@
     // function card_func(){
     //     alert('card')
     // }
+
+    function delete_modal(isopen,test_id, test_nom){
+        if (isopen == '1'){
+            document.getElementById('delete_test_id').value = test_id
+            document.getElementById('delete_test_nom').innerText = test_nom
+            document.querySelector('.delet_modal_form').style.top = '100px'
+            document.querySelector('.delete_modal_back').style.height = '100%'
+        }
+        else{
+            document.querySelector('.delet_modal_form').style.top = '-50%'
+            document.querySelector('.delete_modal_back').style.height = '0'
+        }
+    }
+
+    async function delete_test_fetch(test_id){
+        let res = await fetch('http://127.0.0.1:8003/testlarim/delete/', {
+            method : 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            credentials:'include',
+            body:JSON.stringify({test_id})
+        })
+
+        let data = await res.json()
+        if (data.status == 'error'){
+            alert(data.message)
+            delete_modal(0)
+            return
+        }
+        document.getElementById(`test_card_id_${test_id}`).remove()
+        let cards = document.querySelector('.cards')
+        console.log(cards);
+        
+        if(!cards.innerText){
+            cards.innerHTML = `
+            <div class="one_info">
+                <p>
+                    Hozir sizda hech qanday testlar yo'q.
+                </p>
+                <p>
+                    Test qo'shish uchun <span>Plus</span> belgisini bosing va testlar qo'shing.
+                </p>
+            </div>
+                    `
+        }
+        delete_modal(0)
+
+    }
+
+
     document.querySelector('.plus_modal').addEventListener('submit', async (e)=>{
         e.preventDefault()
         let nom = document.querySelector('#test_nom_id').value
@@ -429,8 +586,10 @@
             })  
             let data = await res.json()
             if (data.test){
+                let one_info = document.querySelector('.one_info')
+                if(one_info) one_info.remove()
                 document.querySelector('.cards').innerHTML+=`
-                    <div class="card" onclick="card_func()">
+                    <div class="card" id='test_card_id_${data.test.test_id}'>
                     <div class="id_star">
                         <p onclick="copyTextToClipboard(event, '${data.test.test_id}')">${data.test.test_id} </p>
                         <div class="stars">
@@ -480,8 +639,8 @@
                     <div class="action_btns">
                         <button class="btn btn-outline-primary">Yechish</button>
                         <button class="btn btn-outline-success">Testlar</button>
-                        <button class="btn btn-outline-info" onclick="test_edit_func(event, 12345678)">Tahrirlash</button>
-                        <button class="btn btn-outline-danger">O'chirish</button>
+                        <button class="btn btn-outline-info" onclick="test_edit_func(event, ${data.test.test_id})">Tahrirlash</button>
+                        <button class="btn btn-outline-danger" onclick="delete_modal('1', '${data.test.test_id}', '${data.test.nom}')">O'chirish</button>
                     </div>
                 </div>
                 `
